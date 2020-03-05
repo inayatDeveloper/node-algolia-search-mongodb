@@ -4,12 +4,13 @@ const async = require("async"),
   ArticleIndex = algoliaClient.initIndex("ArticleIndex");
 
 exports.searchItems = (req, res) => {
-  let search = req.body.search,
+  let search2 = req.body.search,
     totalSearchResult = {};
+  console.log("search.....", search2);
   async.parallel(
     [
       callback => {
-        ArticleIndex.search(search)
+        ArticleIndex.search(search2)
           .then(data => {
             totalSearchResult.Articles = data.hits;
             callback();
@@ -20,7 +21,7 @@ exports.searchItems = (req, res) => {
       },
       callback => {
         userIndex
-          .search(search)
+          .search(search2)
           .then(data => {
             totalSearchResult.Users = data.hits;
             callback();
